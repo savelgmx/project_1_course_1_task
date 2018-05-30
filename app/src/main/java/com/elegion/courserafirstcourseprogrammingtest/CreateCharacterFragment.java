@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class CreateCharacterFragment extends Fragment implements Observer {
     private CharacterCreator mCreator;
 
     private Callback mCallback;
+    private Object s;
 
     public static CreateCharacterFragment newInstance() {
         return new CreateCharacterFragment();
@@ -112,27 +114,27 @@ public class CreateCharacterFragment extends Fragment implements Observer {
     }
 
     private void addSpecializations() {
-        // TODO: 11.12.2017 раскоментируйте это после того,
-        //  как доделаете логику CharacterCreator.getSpecializations()
+        // TODO: 11.12.2017 раскоментируйте это после того как доделаете логику CharacterCreator.getSpecializations()
 
-//        String[] specializations = mCreator.getSpecializations();
-//        for (String s : specializations) {
-//            RadioButton button = new RadioButton(getActivity());
-//            button.setText(s);
-//            button.setId(View.generateViewId());
-//            mSpecializationsRadioGroup.addView(button);
-//        }
-//
-//        mSpecializationsRadioGroup.check(mSpecializationsRadioGroup.getChildAt(mCreator.getSpecializationPosition()).getId());
-//        mSpecializationsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                RadioButton checked = group.findViewById(checkedId);
-//                int position = group.indexOfChild(checked);
-//                mCreator.setSpecialization(position);
-//            }
-//
-//        });
+        String[] specializations = mCreator.getSpecializations();
+        for (String s : specializations) {
+            RadioButton button = new RadioButton(getActivity());
+
+            button.setText(s);
+            button.setId(View.generateViewId());
+            mSpecializationsRadioGroup.addView(button);
+    }
+
+        mSpecializationsRadioGroup.check(mSpecializationsRadioGroup.getChildAt(mCreator.getSpecializationPosition()).getId());
+        mSpecializationsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checked = group.findViewById(checkedId);
+                int position = group.indexOfChild(checked);
+                mCreator.setSpecialization(position);
+            }
+
+        });
     }
 
     private void addParametersList() {
@@ -204,23 +206,22 @@ public class CreateCharacterFragment extends Fragment implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         // TODO: 09.01.2018 раскоментируйте для обновления экрана
-//        if (o instanceof CharacterCreator) {
-//            mAvailablePoints.setText(mCreator.getAvailablePoints());
-//
-//            Map<String, Integer> attributesMap = mCreator.getAttributesMap();
-//            for (TextView view : mParamValues) {
-//                String key = ((String) view.getTag()).toUpperCase();
-//                String value = String.valueOf(attributesMap.get(key));
-//                view.setText(value);
-//            }
-//
-//            Map<String, Boolean> perksMap = mCreator.getPerksMap();
-//            Set<String> tags = perksMap.keySet();
-//            for (String tag : tags) {
-//                CheckBox checkBox = mPerksContainer.findViewWithTag(tag);
-//                checkBox.setChecked(perksMap.get(tag));
-//            }
-//        }
+   /*     if (o instanceof CharacterCreator) {
+            mAvailablePoints.setText(mCreator.getAvailablePoints());
+            Map<String, Integer> attributesMap = mCreator.getAttributesMap();
+            for (TextView view : mParamValues) {
+                String key = ((String) view.getTag()).toUpperCase();
+                String value = String.valueOf(attributesMap.get(key));
+                view.setText(value);
+            }
+
+            Map<String, Boolean> perksMap = mCreator.getPerksMap();
+            Set<String> tags = perksMap.keySet();
+            for (String tag : tags) {
+                CheckBox checkBox = mPerksContainer.findViewWithTag(tag);
+                checkBox.setChecked(perksMap.get(tag));
+            }
+        }*/
     }
 
     @Override
@@ -244,6 +245,7 @@ public class CreateCharacterFragment extends Fragment implements Observer {
         mCallback = null;
         super.onDetach();
     }
+
 
     public interface Callback {
         void onCreateCharacterStarted();

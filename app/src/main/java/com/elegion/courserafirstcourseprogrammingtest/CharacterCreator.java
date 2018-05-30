@@ -1,14 +1,13 @@
 package com.elegion.courserafirstcourseprogrammingtest;
 
 
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observable;
 
-public class CharacterCreator extends Observable  implements Serializable{
+public class CharacterCreator extends Observable implements Serializable {
 
     public enum Specialization {
         WARRIOR, ARCHER, MAGE
@@ -58,27 +57,13 @@ public class CharacterCreator extends Observable  implements Serializable{
     }
 
     public String[] getSpecializations() {
-        // TODO: 11.12.2017
-        /*
+         /*
         *   этот метод должен возвращать массив строк, созданных на основе enum Specialization
         *   Строки должны начинаться с заглавной буквы, остальные строчные
         * */
 
-      /*  public static String[] names() {
-
-            java.util.LinkedList<String> list = new LinkedList<String>();
-            for (State s : State.values()) {
-                list.add(s.name());
-            }
-
-            return list.toArray(new String[list.size()]);
-        }
-
-        */
-
-
-        java.util.LinkedList<String>listOfSpecialisations = new LinkedList<String>();
-        for (Specialization spec:Specialization.values()){
+        java.util.LinkedList<String> listOfSpecialisations = new LinkedList<String>();
+        for (Specialization spec : Specialization.values()) {
             listOfSpecialisations.add(capitalizeFirstLetter(spec.name()));
         }
 
@@ -94,22 +79,45 @@ public class CharacterCreator extends Observable  implements Serializable{
         *  0 - Warrior
         *  1 - Archer
         *  2 - Mage
-        *  если введенное число меньше 0, то в mSpecialization записывается самое первое (порядковый номер - 0) значение
-        *  если введенное число больше длины enum, то в mSpecialization записывается самое последнее (длина - 1) значение
+        *  если введенное число меньше 0, то в mSpecialization записывается самое первое
+        *  (порядковый номер - 0) значение
+        *  если введенное число больше длины enum, то в mSpecialization записывается
+        *  самое последнее (длина - 1) значение
         *
         * */
+        if (position < 0) {
+            mSpecialization = Specialization.WARRIOR;//
+        } else if (position > 1) {
+            mSpecialization = Specialization.MAGE;
+        } else {
 
+            switch (position) {
+                case 0://Warrior
+                    mSpecialization = Specialization.WARRIOR;
+                    break;
+                case 1://Archer
+                    mSpecialization = Specialization.ARCHER;
+                    break;
+                case 2://Mage
+                    mSpecialization = Specialization.MAGE;
+
+
+            }
+        }
     }
 
     public String[] getRaces() {
-        // TODO: 11.12.2017
-        /*
+         /*
         *   этот метод должен возвращать массив строк, созданных на основе enum Races
         *    Строка должна быть формата - первая буква заглавная, остальные строчные
         *   One, Two, Three
         * */
+        java.util.LinkedList<String> listOfRaces = new LinkedList<String>();
+        for (Race rc : Race.values()) {
+            listOfRaces.add(capitalizeFirstLetter(rc.name()));
+        }
 
-        return new String[]{""};
+        return listOfRaces.toArray(new String[listOfRaces.size()]);
     }
 
     public void setRace(int position) {
@@ -151,6 +159,7 @@ public class CharacterCreator extends Observable  implements Serializable{
         return new String[]{""};
 
     }
+
     public void updateAttributeValue(int position, int updateTo) {
         // TODO: 11.12.2017
         /*
