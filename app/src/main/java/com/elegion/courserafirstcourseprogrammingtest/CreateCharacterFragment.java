@@ -206,23 +206,25 @@ public class CreateCharacterFragment extends Fragment implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         // TODO: 09.01.2018 раскоментируйте для обновления экрана
-   /*     if (o instanceof CharacterCreator) {
-            mAvailablePoints.setText(mCreator.getAvailablePoints());
-            Map<String, Integer> attributesMap = mCreator.getAttributesMap();
-            for (TextView view : mParamValues) {
-                String key = ((String) view.getTag()).toUpperCase();
-                String value = String.valueOf(attributesMap.get(key));
-                view.setText(value);
-            }
-
-            Map<String, Boolean> perksMap = mCreator.getPerksMap();
-            Set<String> tags = perksMap.keySet();
-            for (String tag : tags) {
-                CheckBox checkBox = mPerksContainer.findViewWithTag(tag);
-                checkBox.setChecked(perksMap.get(tag));
-            }
-        }*/
+//        if (o instanceof CharacterCreator) {
+//            mAvailablePoints.setText(mCreator.getAvailablePoints());
+//
+//            Map<String, Integer> attributesMap = mCreator.getAttributesMap();
+//            for (TextView view : mParamValues) {
+//                String key = ((String) view.getTag()).toUpperCase();
+//                String value = String.valueOf(attributesMap.get(key));
+//                view.setText(value);
+//            }
+//
+//            Map<String, Boolean> perksMap = mCreator.getPerksMap();
+//            Set<String> tags = perksMap.keySet();
+//            for (String tag : tags) {
+//                CheckBox checkBox = mPerksContainer.findViewWithTag(tag);
+//                checkBox.setChecked(perksMap.get(tag));
+//            }
+//        }
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
