@@ -53,13 +53,13 @@ public class CharacterCreator extends Observable implements Serializable {
         if (original == null || original.length() == 0) {
             return original;
         }
-        return original.substring(0, 1).toUpperCase() + original.substring(1);
+        return original.substring(0, 1).toUpperCase() + original.substring(1).toLowerCase();
     }
 
     public String[] getSpecializations() {
          /*
         *   этот метод должен возвращать массив строк, созданных на основе enum Specialization
-        *   Строки должны начинаться с заглавной буквы, остальные строчные
+        *    Строки должны начинаться с заглавной буквы, остальные строчные
         * */
 
         java.util.LinkedList<String> listOfSpecialisations = new LinkedList<String>();
@@ -72,7 +72,6 @@ public class CharacterCreator extends Observable implements Serializable {
     }
 
     public void setSpecialization(int position) {
-        // TODO: 11.12.2017
         /*
         *  этот метод задает специализацию в переменную mSpecialization
         *  на вход подается число, и из enum Specialization выбирается соответствующий класс
@@ -87,7 +86,7 @@ public class CharacterCreator extends Observable implements Serializable {
         * */
         if (position < 0) {
             mSpecialization = Specialization.WARRIOR;//
-        } else if (position > 1) {
+        } else if (position > Specialization.values().length) {
             mSpecialization = Specialization.MAGE;
         } else {
 
@@ -121,43 +120,65 @@ public class CharacterCreator extends Observable implements Serializable {
     }
 
     public void setRace(int position) {
-        // TODO: 11.12.2017
-        /*
+         /*
         *  этот метод задает специализацию в переменную mRace
         *  на вход подается число, и из enum Race выбирается соответствующая раса
         *  0 - Human
         *  1 - Elf
         *  2 - Orc
         *  3 - Dwarf
-        *  если введенное число меньше 0, то в mRace записывается самое первое (порядковый номер - 0) значение
-        *  если введенное число больше длины enum, то в mRace записывается самое последнее (длина - 1) значение
+        *  если введенное число меньше 0, то в mRace
+        *  записывается самое первое (порядковый номер - 0) значение
+        *  если введенное число больше длины enum, то в mRace записывается
+        *  самое последнее (длина - 1) значение
         *
         * */
+        if (position < 0) {
+            mRace = Race.HUMAN; //HUMAN
+        } else if (position > Race.values().length) {
+            mRace = Race.DWARF;
+        } else {
+
+            switch (position) {
+                case 0://HUMAN
+                    mRace = Race.HUMAN;
+                    break;
+                case 1://ELF
+                    mRace = Race.ELF;
+                    break;
+                case 2://Orc
+                    mRace = Race.ORC;
+                case 3://Dwarf
+                    mRace = Race.DWARF;
+                    break;
+            }
+        }
     }
-
     public String[] getAttributes() {
-
-        // TODO: 11.12.2017
         /*
         *   этот метод должен возвращать массив строк, созданных на основе enum Attribute
         *    Строка должна быть формата - первая буква заглавная, остальные строчные
         *   One, Two, Three
         * */
-        return new String[]{""};
-
+        java.util.LinkedList<String> listOfAttributes = new LinkedList<String>();
+        for (Attribute atb : Attribute.values()) {
+            listOfAttributes.add(capitalizeFirstLetter(atb.name()));
+        }
+        return listOfAttributes.toArray(new String[listOfAttributes.size()]);
     }
 
     public String[] getPerks() {
-        // TODO: 11.12.2017
-        /*
+         /*
         *   этот метод должен возвращать массив строк, созданных на основе enum Perk
         *   Строка должна быть формата - первая буква заглавная, остальные строчные
         *   One, Two, Three
         *
         * */
-
-        return new String[]{""};
-
+        java.util.LinkedList<String> listOfPerks = new LinkedList<String>();
+        for (Perk prk : Perk.values()) {
+            listOfPerks.add(capitalizeFirstLetter(prk.name()));
+        }
+        return listOfPerks.toArray(new String[listOfPerks.size()]);
     }
 
     public void updateAttributeValue(int position, int updateTo) {
@@ -166,10 +187,12 @@ public class CharacterCreator extends Observable implements Serializable {
         *  этот метод увеличивает/уменьшает соответствующее значение атрибута
         *  рекомендуется реализовывать его в последнюю очередь
         *
-        * 1. на вход подается позиция изменяемого атрибута и на сколько нужно этот атрибут увеличить/уменьшить
+        * 1. на вход подается позиция изменяемого атрибута
+        * и на сколько нужно этот атрибут увеличить/уменьшить
         * 2. по позиции атрибута выявляется название атрибута из enum Attribute
         * 3. по названию атрибута получается значение атрибута из mAttributesMap
-        * 4. если атрибут собирается увеличиться и у персонажа достаточно очков для увеличения атрибута (mAvailablePoints)
+        * 4. если атрибут собирается увеличиться и у персонажа достаточно очков
+        * для увеличения атрибута (mAvailablePoints)
         *    или
         *    если атрибут собирается уменьшиться и уменьшенный атрибут будет больше 0,
         *    то атрибут изменяется, количество доступных очков меняется в противоположную сторону.

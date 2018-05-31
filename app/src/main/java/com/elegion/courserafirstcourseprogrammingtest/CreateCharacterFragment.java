@@ -10,12 +10,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.util.Observable;
@@ -95,35 +100,32 @@ public class CreateCharacterFragment extends Fragment implements Observer {
     }
 
     private void addRaces() {
-        // TODO: 11.12.2017 раскоментируйте это после того, как доделаете логику CharacterCreator.getRases()
-//        String[] races = mCreator.getRaces();
-//        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, races);
-//
-//        mRacesSpinner.setAdapter(spinnerAdapter);
-//        mRacesSpinner.setSelection(mCreator.getRacePosition());
-//        mRacesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                mCreator.setRace(position);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
+         String[] races = mCreator.getRaces();
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, races);
+
+        mRacesSpinner.setAdapter(spinnerAdapter);
+        mRacesSpinner.setSelection(mCreator.getRacePosition());
+        mRacesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mCreator.setRace(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     private void addSpecializations() {
-        // TODO: 11.12.2017 раскоментируйте это после того как доделаете логику CharacterCreator.getSpecializations()
 
         String[] specializations = mCreator.getSpecializations();
         for (String s : specializations) {
             RadioButton button = new RadioButton(getActivity());
-
             button.setText(s);
             button.setId(View.generateViewId());
             mSpecializationsRadioGroup.addView(button);
-    }
+        }
 
         mSpecializationsRadioGroup.check(mSpecializationsRadioGroup.getChildAt(mCreator.getSpecializationPosition()).getId());
         mSpecializationsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -138,29 +140,28 @@ public class CreateCharacterFragment extends Fragment implements Observer {
     }
 
     private void addParametersList() {
-        // TODO: 11.12.2017  раскоментируйте это после того, как доделаете логику CharacterCreator.getAttributes();
-//        String[] params = mCreator.getAttributes();
-//        mParamValues = new TextView[params.length];
-//        mParamControlButtons = new ImageButton[params.length * 2];
-//
-//        LayoutInflater inflater = LayoutInflater.from(getActivity());
-//        for (int i = 0, size = params.length; i < size; i++) {
-//            View paramsRow = inflater.inflate(R.layout.li_parameter, mParamsContainer, false);
-//            TextView paramName = paramsRow.findViewById(R.id.tv_param_name);
-//            paramName.setText(params[i]);
-//
-//            TextView paramValue = paramsRow.findViewById(R.id.tv_param_value);
-//            mParamValues[i] = paramValue;
-//            mParamValues[i].setTag(params[i]);
-//
-//            ImageButton decreaseParam = paramsRow.findViewById(R.id.ib_param_decrease);
-//            mParamControlButtons[i] = decreaseParam;
-//
-//            ImageButton increaseParam = paramsRow.findViewById(R.id.ib_param_increase);
-//            mParamControlButtons[i + size] = increaseParam;
-//
-//            mParamsContainer.addView(paramsRow);
-//        }
+         String[] params = mCreator.getAttributes();
+        mParamValues = new TextView[params.length];
+        mParamControlButtons = new ImageButton[params.length * 2];
+
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        for (int i = 0, size = params.length; i < size; i++) {
+            View paramsRow = inflater.inflate(R.layout.li_parameter, mParamsContainer, false);
+            TextView paramName = paramsRow.findViewById(R.id.tv_param_name);
+            paramName.setText(params[i]);
+
+            TextView paramValue = paramsRow.findViewById(R.id.tv_param_value);
+            mParamValues[i] = paramValue;
+            mParamValues[i].setTag(params[i]);
+
+            ImageButton decreaseParam = paramsRow.findViewById(R.id.ib_param_decrease);
+            mParamControlButtons[i] = decreaseParam;
+
+            ImageButton increaseParam = paramsRow.findViewById(R.id.ib_param_increase);
+            mParamControlButtons[i + size] = increaseParam;
+
+            mParamsContainer.addView(paramsRow);
+        }
 
         // TODO: 11.12.2017  раскоментируйте это после того, как доделаете логику CharacterCreator.updateAttributeValue();
 
@@ -179,22 +180,21 @@ public class CreateCharacterFragment extends Fragment implements Observer {
     }
 
     private void addPerks() {
-        // TODO: 11.12.2017  раскоментируйте это после того, как доделаете логику CharacterCreator.getPerks();
 
-//        String perks[] = mCreator.getPerks();
-//
-//        for (String perk : perks) {
-//            CheckBox checkBox = new CheckBox(getActivity());
-//            checkBox.setText(perk);
-//            checkBox.setTag(perk);
-//            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    mCreator.checkPerk(buttonView.getText().toString(), isChecked);
-//                }
-//            });
-//            mPerksContainer.addView(checkBox);
-//        }
+       String perks[] = mCreator.getPerks();
+
+        for (String perk : perks) {
+            CheckBox checkBox = new CheckBox(getActivity());
+            checkBox.setText(perk);
+            checkBox.setTag(perk);
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    mCreator.checkPerk(buttonView.getText().toString(), isChecked);
+                }
+            });
+            mPerksContainer.addView(checkBox);
+        }
     }
 
     @Override
