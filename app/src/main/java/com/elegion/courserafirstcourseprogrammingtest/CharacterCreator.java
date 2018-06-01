@@ -181,8 +181,8 @@ public class CharacterCreator extends Observable implements Serializable {
         return listOfPerks.toArray(new String[listOfPerks.size()]);
     }
 
+
     public void updateAttributeValue(int position, int updateTo) {
-        // TODO: 11.12.2017
         /*
         *  этот метод увеличивает/уменьшает соответствующее значение атрибута
         *  рекомендуется реализовывать его в последнюю очередь
@@ -220,7 +220,67 @@ public class CharacterCreator extends Observable implements Serializable {
         *       то мы не можем увеличить атрибут, ничего не происходит        *
         * */
 
+        if (Integer.valueOf(getAvailablePoints()) > 0) // сначала проверим достаточно ли очков
+
+        {
+            switch (position) {
+                case 0:// из значения 0 выясняем, что меняться будет атрибут STRENGTH
+                    //---------------------------------
+                    //--сначала получим текущее числовое значение атрибута Strength
+                    int currentStrengthValue = mAttributesMap.get(Attribute.STRENGTH.name());
+                    //--- затем изменим его
+                    mAttributesMap.put(Attribute.STRENGTH.name(), currentStrengthValue + updateTo);
+                    if (updateTo > 0) {
+                        mAvailablePoints = mAvailablePoints + 1;
+                    } else if (updateTo < 0) {
+                        mAvailablePoints = mAvailablePoints - 1;
+                    }
+                    //-----
+                    break;
+                case 1: // меняться будет атрибут AGILITY
+                    int currentAgilityValue = mAttributesMap.get(Attribute.AGILITY.name());
+                    //--- затем изменим его
+                    mAttributesMap.put(Attribute.AGILITY.name(), currentAgilityValue + updateTo);
+                    if (updateTo > 0) {
+                        mAvailablePoints = mAvailablePoints + 1;
+                    } else if (updateTo < 0) {
+                        mAvailablePoints = mAvailablePoints - 1;
+                    }
+                    break;
+                case 2:// меняться будет атрибут INTELLECT
+                    int currentIntellectValue = mAttributesMap.get(Attribute.INTELLECT.name());
+                    //--- затем изменим его
+                    mAttributesMap.put(Attribute.INTELLECT.name(), currentIntellectValue + updateTo);
+                    if (updateTo > 0) {
+                        mAvailablePoints = mAvailablePoints + 1;
+                    } else if (updateTo < 0) {
+                        mAvailablePoints = mAvailablePoints - 1;
+                    }
+                    break;
+                case 3:    // меняться будет атрибут STAMINA,
+                    int currentStaminaValue = mAttributesMap.get(Attribute.STAMINA.name());
+                    //--- затем изменим его
+                    mAttributesMap.put(Attribute.STAMINA.name(), currentStaminaValue + updateTo);
+                    if (updateTo > 0) {
+                        mAvailablePoints = mAvailablePoints + 1;
+                    } else if (updateTo < 0) {
+                        mAvailablePoints = mAvailablePoints - 1;
+                    }
+                    break;
+                case 4:    // меняться будет атрибут LUCK
+                    int currentLuckValue = mAttributesMap.get(Attribute.LUCK.name());
+                    //--- затем изменим его
+                    mAttributesMap.put(Attribute.LUCK.name(), currentLuckValue + updateTo);
+                    if (updateTo > 0) {
+                        mAvailablePoints = mAvailablePoints + 1;
+                    } else if (updateTo < 0) {
+                        mAvailablePoints = mAvailablePoints - 1;
+                    }
+                    break;
+            }
+        }
     }
+
 
     public void setName(String name) {
         mName = name;
