@@ -23,8 +23,10 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 /**
  * @author Azret Magometov
@@ -163,8 +165,6 @@ public class CreateCharacterFragment extends Fragment implements Observer {
             mParamsContainer.addView(paramsRow);
         }
 
-        // TODO: 11.12.2017  раскоментируйте это после того, как доделаете
-        // логику CharacterCreator.updateAttributeValue();
 
         for (int i = 0, size = mParamControlButtons.length; i < size; i++) {
             int rowCount = size / 2;
@@ -206,24 +206,23 @@ public class CreateCharacterFragment extends Fragment implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        // TODO: 09.01.2018 раскоментируйте для обновления экрана
-//        if (o instanceof CharacterCreator) {
-//            mAvailablePoints.setText(mCreator.getAvailablePoints());
-//
-//            Map<String, Integer> attributesMap = mCreator.getAttributesMap();
-//            for (TextView view : mParamValues) {
-//                String key = ((String) view.getTag()).toUpperCase();
-//                String value = String.valueOf(attributesMap.get(key));
-//                view.setText(value);
-//            }
-//
-//            Map<String, Boolean> perksMap = mCreator.getPerksMap();
-//            Set<String> tags = perksMap.keySet();
-//            for (String tag : tags) {
-//                CheckBox checkBox = mPerksContainer.findViewWithTag(tag);
-//                checkBox.setChecked(perksMap.get(tag));
-//            }
-//        }
+        if (o instanceof CharacterCreator) {
+            mAvailablePoints.setText(mCreator.getAvailablePoints());
+
+            Map<String, Integer> attributesMap = mCreator.getAttributesMap();
+            for (TextView view : mParamValues) {
+                String key = ((String) view.getTag()).toUpperCase();
+                String value = String.valueOf(attributesMap.get(key));
+                view.setText(value);
+            }
+
+            Map<String, Boolean> perksMap = mCreator.getPerksMap();
+            Set<String> tags = perksMap.keySet();
+            for (String tag : tags) {
+                CheckBox checkBox = mPerksContainer.findViewWithTag(tag);
+                checkBox.setChecked(perksMap.get(tag));
+            }
+        }
     }
 
 
