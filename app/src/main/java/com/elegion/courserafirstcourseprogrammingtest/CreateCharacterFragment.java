@@ -178,6 +178,7 @@ public class CreateCharacterFragment extends Fragment implements Observer {
                 }
             });
         }
+
     }
 
     private void addPerks() {

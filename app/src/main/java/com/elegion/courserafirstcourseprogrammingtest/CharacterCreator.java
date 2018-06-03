@@ -148,6 +148,7 @@ public class CharacterCreator extends Observable implements Serializable {
                     break;
                 case 2://Orc
                     mRace = Race.ORC;
+                    break;
                 case 3://Dwarf
                     mRace = Race.DWARF;
                     break;

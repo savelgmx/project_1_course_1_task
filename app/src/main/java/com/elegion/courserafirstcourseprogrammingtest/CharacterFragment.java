@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -49,15 +50,22 @@ public class CharacterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
         return inflater.inflate(R.layout.fragment_character, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        ImageView imageView = view.findViewById(R.id.imageView);
+
         mName = view.findViewById(R.id.value_name);
         mName.setText(mCharacter.getName());
 
         mRace = view.findViewById(R.id.value_race);
+
+
         mRace.setText(mCharacter.getRace());
 
         mSpecialization = view.findViewById(R.id.value_spec);
@@ -83,6 +91,26 @@ public class CharacterFragment extends Fragment {
 
         mCriticalHit = view.findViewById(R.id.value_critical_hit_chance);
         mCriticalHit.setText(mCharacter.getCriticalHitChance());
+
+        switch(mCharacter.getRace()){
+              case "Human":
+              //----здесь разные в зависимоcти от расы
+                imageView.setImageResource(R.drawable.gandalf);
+              break;
+              case "Elf":
+                   imageView.setImageResource(R.drawable.legolas);
+                  break;
+              case "Orc":
+                   imageView.setImageResource(R.drawable.orc);
+                  break;
+              case "Dwarf":
+                   imageView.setImageResource(R.drawable.gimli);
+                  break;
+
+          }
+
+
+
     }
 
 
