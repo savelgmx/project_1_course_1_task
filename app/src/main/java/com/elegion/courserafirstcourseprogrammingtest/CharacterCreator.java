@@ -205,26 +205,10 @@ public class CharacterCreator extends Observable implements Serializable {
         *  самое последнее (длина - 1) значение
         *
         * */
-        if (position < 0) {
-            mSpecialization = Specialization.WARRIOR;//
-        } else if (position > Specialization.values().length) {
-            mSpecialization = Specialization.MAGE;
-        } else {
-
-            switch (position) {
-                case 0://Warrior
-                    mSpecialization = Specialization.WARRIOR;
-                    break;
-                case 1://Archer
-                    mSpecialization = Specialization.ARCHER;
-                    break;
-                case 2://Mage
-                    mSpecialization = Specialization.MAGE;
-                    break;
-
-
-            }
-        }
+        if (position<0) position = 0;
+        else  if (position> Specialization.values().length-1)
+            position = Specialization.values().length-1;
+        mSpecialization =  Specialization.values()[position];
     }
 
     public Race getRace() {
@@ -246,27 +230,10 @@ public class CharacterCreator extends Observable implements Serializable {
         *  самое последнее (длина - 1) значение
         *
         * */
-        if (position < 0) {
-            mRace = Race.HUMAN; //HUMAN
-        } else if (position > Race.values().length) {
-            mRace = Race.DWARF;
-        } else {
-
-            switch (position) {
-                case 0://HUMAN
-                    mRace = Race.HUMAN;
-                    break;
-                case 1://ELF
-                    mRace = Race.ELF;
-                    break;
-                case 2://Orc
-                    mRace = Race.ORC;
-                    break;
-                case 3://Dwarf
-                    mRace = Race.DWARF;
-                    break;
-            }
-        }
+        if (position<0) position = 0;
+        else  if (position>= Race.values().length)
+            position = Race.values().length-1;
+        mRace =  Race.values()[position];
     }
 
     public Map<String, Boolean> getPerksMap() {
