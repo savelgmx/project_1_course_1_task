@@ -9,31 +9,12 @@ import java.util.Observable;
 
 public class CharacterCreator extends Observable implements Serializable {
 
-    public enum Specialization {
-        WARRIOR, ARCHER, MAGE
-    }
-
-    public enum Race {
-        HUMAN, ELF, ORC, DWARF
-    }
-
-    public enum Attribute {
-        STRENGTH, AGILITY, INTELLECT, STAMINA, LUCK
-    }
-
-    public enum Perk {
-        BERSERK, CALM, LIGHTWEIGHT, HEAVYARMORED, OBSERVANT, MEDITATIONS
-    }
-
     private String mName;
     private Specialization mSpecialization;
     private Race mRace;
     private int mAvailablePoints;
-
     private Map<String, Integer> mAttributesMap = new HashMap<>();
     private Map<String, Boolean> mPerksMap = new HashMap<>();
-
-
     public CharacterCreator() {
         mRace = Race.HUMAN;
         mSpecialization = Specialization.WARRIOR;
@@ -71,40 +52,6 @@ public class CharacterCreator extends Observable implements Serializable {
 
     }
 
-    public void setSpecialization(int position) {
-        /*
-        *  этот метод задает специализацию в переменную mSpecialization
-        *  на вход подается число, и из enum Specialization выбирается соответствующий класс
-        *  0 - Warrior
-        *  1 - Archer
-        *  2 - Mage
-        *  если введенное число меньше 0, то в mSpecialization записывается самое первое
-        *  (порядковый номер - 0) значение
-        *  если введенное число больше длины enum, то в mSpecialization записывается
-        *  самое последнее (длина - 1) значение
-        *
-        * */
-        if (position < 0) {
-            mSpecialization = Specialization.WARRIOR;//
-        } else if (position > Specialization.values().length) {
-            mSpecialization = Specialization.MAGE;
-        } else {
-
-            switch (position) {
-                case 0://Warrior
-                    mSpecialization = Specialization.WARRIOR;
-                    break;
-                case 1://Archer
-                    mSpecialization = Specialization.ARCHER;
-                    break;
-                case 2://Mage
-                    mSpecialization = Specialization.MAGE;
-
-
-            }
-        }
-    }
-
     public String[] getRaces() {
          /*
         *   этот метод должен возвращать массив строк, созданных на основе enum Races
@@ -119,42 +66,6 @@ public class CharacterCreator extends Observable implements Serializable {
         return listOfRaces.toArray(new String[listOfRaces.size()]);
     }
 
-    public void setRace(int position) {
-         /*
-        *  этот метод задает специализацию в переменную mRace
-        *  на вход подается число, и из enum Race выбирается соответствующая раса
-        *  0 - Human
-        *  1 - Elf
-        *  2 - Orc
-        *  3 - Dwarf
-        *  если введенное число меньше 0, то в mRace
-        *  записывается самое первое (порядковый номер - 0) значение
-        *  если введенное число больше длины enum, то в mRace записывается
-        *  самое последнее (длина - 1) значение
-        *
-        * */
-        if (position < 0) {
-            mRace = Race.HUMAN; //HUMAN
-        } else if (position > Race.values().length) {
-            mRace = Race.DWARF;
-        } else {
-
-            switch (position) {
-                case 0://HUMAN
-                    mRace = Race.HUMAN;
-                    break;
-                case 1://ELF
-                    mRace = Race.ELF;
-                    break;
-                case 2://Orc
-                    mRace = Race.ORC;
-                    break;
-                case 3://Dwarf
-                    mRace = Race.DWARF;
-                    break;
-            }
-        }
-    }
     public String[] getAttributes() {
         /*
         *   этот метод должен возвращать массив строк, созданных на основе enum Attribute
@@ -181,7 +92,6 @@ public class CharacterCreator extends Observable implements Serializable {
         }
         return listOfPerks.toArray(new String[listOfPerks.size()]);
     }
-
 
     public void updateAttributeValue(int position, int updateTo) {
         /*
@@ -282,13 +192,16 @@ public class CharacterCreator extends Observable implements Serializable {
         }
     }
 
-
     public void setName(String name) {
         mName = name;
     }
 
     public String getAvailablePoints() {
         return String.valueOf(mAvailablePoints);
+    }
+
+    public void setAvailablePoints(int availablePoints) {
+        mAvailablePoints = availablePoints;
     }
 
     public Map<String, Integer> getAttributesMap() {
@@ -314,16 +227,84 @@ public class CharacterCreator extends Observable implements Serializable {
         return mSpecialization;
     }
 
+    public void setSpecialization(int position) {
+        /*
+        *  этот метод задает специализацию в переменную mSpecialization
+        *  на вход подается число, и из enum Specialization выбирается соответствующий класс
+        *  0 - Warrior
+        *  1 - Archer
+        *  2 - Mage
+        *  если введенное число меньше 0, то в mSpecialization записывается самое первое
+        *  (порядковый номер - 0) значение
+        *  если введенное число больше длины enum, то в mSpecialization записывается
+        *  самое последнее (длина - 1) значение
+        *
+        * */
+        if (position < 0) {
+            mSpecialization = Specialization.WARRIOR;//
+        } else if (position > Specialization.values().length) {
+            mSpecialization = Specialization.MAGE;
+        } else {
+
+            switch (position) {
+                case 0://Warrior
+                    mSpecialization = Specialization.WARRIOR;
+                    break;
+                case 1://Archer
+                    mSpecialization = Specialization.ARCHER;
+                    break;
+                case 2://Mage
+                    mSpecialization = Specialization.MAGE;
+                    break;
+
+
+            }
+        }
+    }
+
     public Race getRace() {
         return mRace;
     }
 
-    public Map<String, Boolean> getPerksMap() {
-        return mPerksMap;
+    public void setRace(int position) {
+         /*
+        *  этот метод задает специализацию в переменную mRace
+        *  на вход подается число, и из enum Race выбирается соответствующая раса
+        *  0 - Human
+        *  1 - Elf
+        *  2 - Orc
+        *  3 - Dwarf
+        *  если введенное число меньше 0, то в mRace
+        *  записывается самое первое (порядковый номер - 0) значение
+        *  если введенное число больше длины enum, то в mRace записывается
+        *  самое последнее (длина - 1) значение
+        *
+        * */
+        if (position < 0) {
+            mRace = Race.HUMAN; //HUMAN
+        } else if (position > Race.values().length) {
+            mRace = Race.DWARF;
+        } else {
+
+            switch (position) {
+                case 0://HUMAN
+                    mRace = Race.HUMAN;
+                    break;
+                case 1://ELF
+                    mRace = Race.ELF;
+                    break;
+                case 2://Orc
+                    mRace = Race.ORC;
+                    break;
+                case 3://Dwarf
+                    mRace = Race.DWARF;
+                    break;
+            }
+        }
     }
 
-    public void setAvailablePoints(int availablePoints) {
-        mAvailablePoints = availablePoints;
+    public Map<String, Boolean> getPerksMap() {
+        return mPerksMap;
     }
 
     public int getRacePosition() {
@@ -332,5 +313,21 @@ public class CharacterCreator extends Observable implements Serializable {
 
     public int getSpecializationPosition() {
         return mSpecialization.ordinal();
+    }
+
+    public enum Specialization {
+        WARRIOR, ARCHER, MAGE
+    }
+
+    public enum Race {
+        HUMAN, ELF, ORC, DWARF
+    }
+
+    public enum Attribute {
+        STRENGTH, AGILITY, INTELLECT, STAMINA, LUCK
+    }
+
+    public enum Perk {
+        BERSERK, CALM, LIGHTWEIGHT, HEAVYARMORED, OBSERVANT, MEDITATIONS
     }
 }

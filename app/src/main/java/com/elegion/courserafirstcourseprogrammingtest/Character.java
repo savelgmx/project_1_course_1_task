@@ -34,18 +34,6 @@ public class Character implements Serializable {
 
     private Map<String, Boolean> mPerks;
 
-    public void setName(String name) {
-        mName = name;
-    }
-
-    public void setRace(CharacterCreator.Race race) {
-        mRace = race;
-    }
-
-    public void setSpecialization(CharacterCreator.Specialization personClass) {
-        mSpecialization = personClass;
-    }
-
     public String getAttack() {
         return String.valueOf(mAttack);
     }
@@ -159,16 +147,27 @@ public class Character implements Serializable {
         mPerks = perks;
     }
 
-
     public String getName() {
         return mName;
+    }
+
+    public void setName(String name) {
+        mName = name;
     }
 
     public String getRace() {
         return mRace.name().substring(0, 1) + mRace.name().substring(1).toLowerCase();
     }
 
+    public void setRace(CharacterCreator.Race race) {
+        mRace = race;
+    }
+
     public String getSpecialization() {
         return mSpecialization.name().substring(0, 1) + mSpecialization.name().substring(1).toLowerCase();
+    }
+
+    public void setSpecialization(CharacterCreator.Specialization personClass) {
+        mSpecialization = personClass;
     }
 }
