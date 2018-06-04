@@ -38,7 +38,11 @@ public class CharacterCreator extends Observable implements Serializable {
     }
 
     public String[] getSpecializations() {
-         /*
+        // TODO: 11.12.2017
+        /*
+        *   этот метод должен возвращать массив строк, созданных на основе enum Specialization
+        *   Строки должны начинаться с заглавной буквы, остальные строчные
+        * */        /*
         *   этот метод должен возвращать массив строк, созданных на основе enum Specialization
         *    Строки должны начинаться с заглавной буквы, остальные строчные
         * */
@@ -53,7 +57,8 @@ public class CharacterCreator extends Observable implements Serializable {
     }
 
     public String[] getRaces() {
-         /*
+        // TODO: 11.12.2017
+        /*
         *   этот метод должен возвращать массив строк, созданных на основе enum Races
         *    Строка должна быть формата - первая буква заглавная, остальные строчные
         *   One, Two, Three
@@ -67,6 +72,7 @@ public class CharacterCreator extends Observable implements Serializable {
     }
 
     public String[] getAttributes() {
+        // TODO: 11.12.2017
         /*
         *   этот метод должен возвращать массив строк, созданных на основе enum Attribute
         *    Строка должна быть формата - первая буква заглавная, остальные строчные
@@ -80,7 +86,8 @@ public class CharacterCreator extends Observable implements Serializable {
     }
 
     public String[] getPerks() {
-         /*
+        // TODO: 11.12.2017
+        /*
         *   этот метод должен возвращать массив строк, созданных на основе enum Perk
         *   Строка должна быть формата - первая буква заглавная, остальные строчные
         *   One, Two, Three
@@ -94,6 +101,7 @@ public class CharacterCreator extends Observable implements Serializable {
     }
 
     public void updateAttributeValue(int position, int updateTo) {
+        // TODO: 11.12.2017
         /*
         *  этот метод увеличивает/уменьшает соответствующее значение атрибута
         *  рекомендуется реализовывать его в последнюю очередь
@@ -131,64 +139,20 @@ public class CharacterCreator extends Observable implements Serializable {
         *       то мы не можем увеличить атрибут, ничего не происходит        *
         * */
 
-        if (Integer.valueOf(getAvailablePoints()) > 0) // сначала проверим достаточно ли очков
+        String nameAttribute = Attribute.values()[position].name();
+        Integer value = mAttributesMap.get(nameAttribute);
+        if ((updateTo<0 && value ==1) || (updateTo>0 && mAvailablePoints==0)) {
+            return;
+        }
+        if ((updateTo> 0 && updateTo<=mAvailablePoints) ||
+                (updateTo<0 && value-updateTo>0)) {
 
-        {
-            switch (position) {
-                case 0:// из значения 0 выясняем, что меняться будет атрибут STRENGTH
-                    //---------------------------------
-                    //--сначала получим текущее числовое значение атрибута Strength
-                    int currentStrengthValue = mAttributesMap.get(Attribute.STRENGTH.name());
-                    //--- затем изменим его
-                    mAttributesMap.put(Attribute.STRENGTH.name(), currentStrengthValue + updateTo);
-                    if (updateTo > 0) {
-                        mAvailablePoints = mAvailablePoints + 1;
-                    } else if (updateTo < 0) {
-                        mAvailablePoints = mAvailablePoints - 1;
-                    }
-                    //-----
-                    break;
-                case 1: // меняться будет атрибут AGILITY
-                    int currentAgilityValue = mAttributesMap.get(Attribute.AGILITY.name());
-                    //--- затем изменим его
-                    mAttributesMap.put(Attribute.AGILITY.name(), currentAgilityValue + updateTo);
-                    if (updateTo > 0) {
-                        mAvailablePoints = mAvailablePoints + 1;
-                    } else if (updateTo < 0) {
-                        mAvailablePoints = mAvailablePoints - 1;
-                    }
-                    break;
-                case 2:// меняться будет атрибут INTELLECT
-                    int currentIntellectValue = mAttributesMap.get(Attribute.INTELLECT.name());
-                    //--- затем изменим его
-                    mAttributesMap.put(Attribute.INTELLECT.name(), currentIntellectValue + updateTo);
-                    if (updateTo > 0) {
-                        mAvailablePoints = mAvailablePoints + 1;
-                    } else if (updateTo < 0) {
-                        mAvailablePoints = mAvailablePoints - 1;
-                    }
-                    break;
-                case 3:    // меняться будет атрибут STAMINA,
-                    int currentStaminaValue = mAttributesMap.get(Attribute.STAMINA.name());
-                    //--- затем изменим его
-                    mAttributesMap.put(Attribute.STAMINA.name(), currentStaminaValue + updateTo);
-                    if (updateTo > 0) {
-                        mAvailablePoints = mAvailablePoints + 1;
-                    } else if (updateTo < 0) {
-                        mAvailablePoints = mAvailablePoints - 1;
-                    }
-                    break;
-                case 4:    // меняться будет атрибут LUCK
-                    int currentLuckValue = mAttributesMap.get(Attribute.LUCK.name());
-                    //--- затем изменим его
-                    mAttributesMap.put(Attribute.LUCK.name(), currentLuckValue + updateTo);
-                    if (updateTo > 0) {
-                        mAvailablePoints = mAvailablePoints + 1;
-                    } else if (updateTo < 0) {
-                        mAvailablePoints = mAvailablePoints - 1;
-                    }
-                    break;
-            }
+            value += updateTo;
+            mAvailablePoints -= updateTo;
+
+            mAttributesMap.put(nameAttribute, value);
+            setChanged();
+            notifyObservers();
         }
     }
 
@@ -228,7 +192,8 @@ public class CharacterCreator extends Observable implements Serializable {
     }
 
     public void setSpecialization(int position) {
-        /*
+        // TODO: 11.12.2017
+       /*
         *  этот метод задает специализацию в переменную mSpecialization
         *  на вход подается число, и из enum Specialization выбирается соответствующий класс
         *  0 - Warrior
@@ -267,7 +232,8 @@ public class CharacterCreator extends Observable implements Serializable {
     }
 
     public void setRace(int position) {
-         /*
+        // TODO: 11.12.2017
+        /*
         *  этот метод задает специализацию в переменную mRace
         *  на вход подается число, и из enum Race выбирается соответствующая раса
         *  0 - Human

@@ -102,6 +102,7 @@ public class CreateCharacterFragment extends Fragment implements Observer {
     }
 
     private void addRaces() {
+        // TODO: 11.12.2017 раскоментируйте это после того, как доделаете логику CharacterCreator.getRases()
          String[] races = mCreator.getRaces();
         SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, races);
 
@@ -120,7 +121,7 @@ public class CreateCharacterFragment extends Fragment implements Observer {
     }
 
     private void addSpecializations() {
-
+// TODO: 11.12.2017 раскоментируйте это после того, как доделаете логику CharacterCreator.getSpecializations()
         String[] specializations = mCreator.getSpecializations();
         for (String s : specializations) {
             RadioButton button = new RadioButton(getActivity());
@@ -142,6 +143,7 @@ public class CreateCharacterFragment extends Fragment implements Observer {
     }
 
     private void addParametersList() {
+        // TODO: 11.12.2017  раскоментируйте это после того, как доделаете логику CharacterCreator.getAttributes();
          String[] params = mCreator.getAttributes();
         mParamValues = new TextView[params.length];
         mParamControlButtons = new ImageButton[params.length * 2];
@@ -165,7 +167,7 @@ public class CreateCharacterFragment extends Fragment implements Observer {
             mParamsContainer.addView(paramsRow);
         }
 
-
+// TODO: 11.12.2017  раскоментируйте это после того, как доделаете логику CharacterCreator.updateAttributeValue();
         for (int i = 0, size = mParamControlButtons.length; i < size; i++) {
             int rowCount = size / 2;
             final int row = i < rowCount ? i : i - rowCount;
@@ -182,7 +184,7 @@ public class CreateCharacterFragment extends Fragment implements Observer {
     }
 
     private void addPerks() {
-
+// TODO: 11.12.2017  раскоментируйте это после того, как доделаете логику CharacterCreator.getPerks();
        String perks[] = mCreator.getPerks();
 
         for (String perk : perks) {
@@ -207,6 +209,8 @@ public class CreateCharacterFragment extends Fragment implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        // TODO: 09.01.2018 раскоментируйте для обновления экрана
+
         if (o instanceof CharacterCreator) {
             mAvailablePoints.setText(mCreator.getAvailablePoints());
 
